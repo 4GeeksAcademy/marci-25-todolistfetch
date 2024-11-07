@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 export const UserJPH = () => {
@@ -23,16 +23,20 @@ export const UserJPH = () => {
         return data
     }
 
-    const handleOnClick = () => {
-        getUsers();
-    }
+    /*     const handleOnClick = () => {
+            getUsers();
+        } */
+
+    useEffect(() => {
+        getUsers()
+    }, [])
 
     return (
         <div className="container">
             user jph
-            <button onClick={handleOnClick} className={`btn btn-success`} type="button">
+            {/*             <button onClick={handleOnClick} className={`btn btn-success`} type="button">
                 Get Users
-            </button>
+            </button> */}
             <div className="container">
                 {!users ? 'No tengo Datos ' :
                     <ul className="list-group">
