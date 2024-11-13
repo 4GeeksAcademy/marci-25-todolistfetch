@@ -67,6 +67,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data.results)
 					setStore({characters: data.results})
 				},
+				getCharacter: async (uid) => {
+					const url = getStore().swUrl + "people/" + uid;
+					const options = {
+						method: "GET"  
+					};
+					const response = await fetch(url, options); 
+					if (!response.ok) {
+						console.log("Error:", response.status, response.statusText);
+						return
+					}
+					const data = await response.json();
+					setStore({Currentcharacter: data.result})
+
+				},
 				getFilms: async () => {
 					const url = `${getStore().swUrl}/films`
 					const options = {
@@ -141,7 +155,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json()
 					console.log(data.results)
 					setStore({species: data.results})
-				},
+					},
+/* 				getCurrentCharacter: async (characterid) => {
+					const url = `${getStore().swUrl}/api//people/${characterid}`
+					const options = {
+						method: "GET", 
+					}
+	
+					const response = await fetch(url, options)
+					if (!response.ok) {
+						console.error("Hay un error", response.status, response.statusText)
+						console.error(url, options)
+					}
+					const data = await response.json()
+					console.log(data.results)
+					setStore({currentCharacter: data})
+				},  */
 				getUsers: async () => {
 					// const url = 'https://jsonplaceholder.typicode.com/users';
 					const url = `${getStore().host}/agendas/${getStore().slug}/contacts`;
