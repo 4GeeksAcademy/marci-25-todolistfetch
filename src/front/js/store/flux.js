@@ -8,9 +8,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			slug: 'Marcel',
 			host: 'https://playground.4geeks.com/contact',
+			swUrl:"https://swapi.tech/api/",
 			contacts: [],
 			currentContact: null,
 			currentUser: null,
+			characters: [],
+			vehicles: [],
+			planets: [],
+			species: [],
+			currentCharacter: [],
 		},
 		actions: {
 				// Use getActions to call a function within a fuction
@@ -43,6 +49,66 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					//reset the global store
 					setStore({ demo: demo });
+				},
+				getCharacters: async () => {
+					const url = `${getStore().swUrl}/people`
+					const options = {
+						method: 'GET',
+						"Content-Type": "application/json"
+					}
+					const response = await fetch(url, options)
+					if(!response.ok){
+						console.error('Hay un error:', response.status, response.statusText)
+						console.error(url, options)
+					}
+					const data = await response.json()
+					console.log(data.results)
+					setStore({characters: data.results})
+				},
+				getVehicles: async () => {
+					const url = `${getStore().swUrl}/vehicles`
+					const options = {
+						method: "GET",
+						"Content-Type": "application/json"
+					}
+					const response = await fetch(url, options)
+					if(!response.ok){
+						console.error('Hay un error:', response.status, response.statusText)
+						console.error(url, options)
+					}
+					const data = await response.json()
+					console.log(data.results)
+					setStore({vehicles: data.results})
+				},
+				getPlanets: async () => {
+					const url = `${getStore().swUrl}/planets`
+					const options = {
+						method: "GET",
+						"Content-Type": "application/json"
+					}
+					const response = await fetch(url, options)
+					if(!response.ok){
+						console.error('Hay un error:', response.status, response.statusText)
+						console.error(url, options)
+					}
+					const data = await response.json()
+					console.log(data.results)
+					setStore({planets: data.results})
+				},
+				getSpecies: async () => {
+					const url = `${getStore().swUrl}/species`
+					const options = {
+						method: "GET",
+						"Content-Type": "application/json"
+					}
+					const response = await fetch(url, options)
+					if(!response.ok){
+						console.error('Hay un error:', response.status, response.statusText)
+						console.error(url, options)
+					}
+					const data = await response.json()
+					console.log(data.results)
+					setStore({species: data.results})
 				},
 				getUsers: async () => {
 					// const url = 'https://jsonplaceholder.typicode.com/users';
